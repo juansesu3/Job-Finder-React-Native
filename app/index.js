@@ -13,32 +13,41 @@ import { ScrollView } from "react-native";
 
 const Home = () => {
   const router = useRouter();
+  const [searchterm, setSearchterm] = useState("");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLORS.lightWhite },
-          headerShadowVisible:false,
-          headerLeft: ()=>(
+          headerShadowVisible: false,
+          headerLeft: () => (
             <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
           ),
-          headerRight: ()=>(
+          headerRight: () => (
             <ScreenHeaderBtn iconUrl={images.profile} dimension="60%" />
           ),
-          headerTitle:""
+          headerTitle: "",
         }}
       />
-      <ScrollView showsVerticallIndicator={false} >
-        <View style={{
-          flex: 1,
-          padding: SIZES.medium,
-        }}>
-          <Welcome />
+      <ScrollView showsVerticallIndicator={false}>
+        <View
+          style={{
+            flex: 1,
+            padding: SIZES.medium,
+          }}
+        >
+          <Welcome
+            searchterm={searchterm}
+            setSearchterm={setSearchterm}
+            handleClick={() => {
+              if (searchterm) {
+                router.push(`/search/${searchterm}`);
+              }
+            }}
+          />
           <Popularjobs />
           <Nearbyjobs />
-
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );
